@@ -1,0 +1,32 @@
+<div class="signup-form">
+  <h1> Sign Up</h1>
+  <%=form_with model: @user, url: '/signup' do |form| %>
+  <% if form.object.errors.any? %>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+  <p>
+    <%= form.label :username %>
+    <%= form.text_field :username %>
+  </p>
+
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :password %>
+    <%= form.text_field :password %>
+  </p>
+
+  <%= form.submit %>
+  <p>Have an account? Click <%= link_to  'here', '/sessions/new' %> to sign in.</p>
+</div>
