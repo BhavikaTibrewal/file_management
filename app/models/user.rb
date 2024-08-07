@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_secure_password
+  # include ActiveModel::SecurePassword
+  # has_secure_password
   has_many :documents
   validates :user_name, :full_name, :email, presence: true
   validates :user_name, length: { maximum: 15 }, uniqueness: true

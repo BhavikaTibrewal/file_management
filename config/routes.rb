@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  resource :session, :users
   root 'documents#index'
-  get '/signup' => 'users#index'
-  post '/signup' => 'users#create'
+  # get '/signup1' => 'users#new'
+  # post '/signup2' => 'users#create'
   get '/profile' => 'users#show', :as => :user
   get '/profile/edit' => 'users#edit'
   patch '/profile' => 'users#update'
 
-  get '/login' => 'sessions#index'
-  post '/login' => 'sessions#index'
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+
+  resource  :document, except: [:new, :edit]
+  resources :users
 end

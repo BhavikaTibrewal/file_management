@@ -1,3 +1,3 @@
-class ApplicationRecord
-  self.abstract_class = true
+class ApplicationRecord < ActiveRecord::Base
+  primary_abstract_class
 end
