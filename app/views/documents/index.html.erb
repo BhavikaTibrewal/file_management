@@ -1,4 +1,14 @@
 <h1>Documents</h1>
+<div class="col-sm-3">
+  <%= form_for(:document, url: document_path, method: 'post') do |f| %>
+    <div class="custom-file add-new">
+      <%= f.label :user_document, class:"custom-file-label" do %>Upload File
+        <%= f.file_field :user_document, class: 'custom-file-input',
+                         onchange: "this.form.submit();" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 <% if @documents.any? %>
   <table class="documents-table">
     <thead>

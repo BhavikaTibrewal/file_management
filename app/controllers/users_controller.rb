@@ -19,24 +19,29 @@ class UsersController < ApplicationController
       puts "after save"
       session[:user_id] = @user.id
       redirect_to '/'
-    # else
-    #   render :'users/new'
+      else
+        render :'users/new'
     end
   end
-  def edit
 
+  def edit
+    @user = current_user
   end
 
   def update
-
-  end
-
-  def show
+    @user = current_user
     @profile_updated = false
+    if @user.update(user_params)
+      @profile_updated = true
+      render root_path
+    else
+      render :edit
+    end
   end
 
   private
+
   def user_params
-    params.require(:user).permit(:user_name, :full_name, :email, :password)
+    params.permit(:user_name, :full_name, :email, :password)
   end
 end

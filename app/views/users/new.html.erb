@@ -1,7 +1,7 @@
-<form class="signup-form">
+
   <h2> Sign Up</h2>
   <hr>
-  <%= form_with(model: @user, url: '/abcd') do |form| %>
+  <%= form_with( url: '/signup', method: 'post') do |form| %>
   <%# if form.object.errors.any? %>
       <%# @user.errors.full_messages.each do |msg| %>
 <!--        <li><%#= msg %></li>-->
@@ -21,11 +21,11 @@
   <div class="form-group mb-3">
     <%= form.label :email %>
     <%= form.email_field :email, class: 'form-control', required: true %>
-    <% if @user.errors[:email].any? %>
-      <small class="text-danger">
-        <%= @user.errors[:email][0] %>
-      </small>
-    <% end %>
+    <%# if @user.errors[:email].any? %>
+<!--      <small class="text-danger">-->
+        <%#= @user.errors[:email][0] %>
+<!--      </small>-->
+    <%# end %>
   </div>
 
   <div class="form-group mb-3">
@@ -39,4 +39,3 @@
   <%= form.submit class: 'btn btn-md btn-primary mb-3' %>
   <p>Have an account? Click <%= link_to  'here', '/login' %> to sign in.</p>
   <% end %>
-</form>
