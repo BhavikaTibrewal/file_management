@@ -2,7 +2,7 @@
   <h2> Sign Up</h2>
   <hr>
   <%= form_with( url: '/signup', method: 'post') do |form| %>
-  <% if user.errors.any? %>
+  <% if @user.errors.any? %>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>

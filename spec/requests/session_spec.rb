@@ -29,7 +29,7 @@ RSpec.describe "Session", type: :request do
     it { expect(session[:user_id]).to be_nil }
   end
 
-  describe "#show" do
+  describe "#new" do
     it 'should render user' do
       get '/'
       expect(response).to render_template(:new)

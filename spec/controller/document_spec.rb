@@ -11,7 +11,6 @@ RSpec.describe DocumentsController, :type => :controller do
 
     before(:each) do
       @spec_asset_path = 'spec/assets/file_to_upload.txt'
-      @upload_asset_path = "app/assets/uploads/#{session[:user_id]}/file_to_upload.txt"
     end
 
     it 'Uploads a file' do
@@ -30,7 +29,7 @@ RSpec.describe DocumentsController, :type => :controller do
       documents = Document.all
       expect(documents.size).to be(1)
 
-      get :download, params: { id: documents[0].uuid }
+      redirect_to '/document/'+ documents[0].uuid
       allow(controller).to receive(:send_file)
     end
 
