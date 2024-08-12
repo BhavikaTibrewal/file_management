@@ -1,6 +1,5 @@
 class DocumentsController <ApplicationController
   before_action :require_user, except: [:show]
-  # before_action :set_document, only: [:update, :destroy]
   def index
     @documents = current_user.documents.order(created_at: :asc)
   end
@@ -36,7 +35,7 @@ class DocumentsController <ApplicationController
   end
 
   def update
-    # set_document
+
     @document = current_user.documents.with_hash(params[:id]).first
 
     if @document.sharing

@@ -2,11 +2,11 @@
   <h2> Sign Up</h2>
   <hr>
   <%= form_with( url: '/signup', method: 'post') do |form| %>
-  <%# if form.object.errors.any? %>
-      <%# @user.errors.full_messages.each do |msg| %>
-<!--        <li><%#= msg %></li>-->
-      <%# end %>
-    <%# end %>
+  <% if user.errors.any? %>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    <% end %>
 
   <div class="form-group mb-3">
     <%= form.label :user_name %>

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if session[:user_id]
       redirect_to '/' if User.find(session[:user_id])
     else
-      # @user = User.new
+      @user = User.new
     end
   end
 
@@ -35,7 +35,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def user_params
     params.permit(:user_name, :full_name, :email, :password)
   end
