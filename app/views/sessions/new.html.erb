@@ -3,6 +3,7 @@
     <h2>Login</h2>
     <hr>
     <div class="form-group">
+
       <%= form.label :user_name, 'Username' %>
       <%= form.text_field :user_name, class: 'form-control',
                        required: true, maxlength: 15, value: @params && @params[:user_name] %>

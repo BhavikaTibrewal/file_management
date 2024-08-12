@@ -1,3 +1,7 @@
+
+<% flash.each do |key, value| %>
+  <%= content_tag :div, value, class: "flash #{key}" %>
+<% end %>
 <h1>Documents</h1>
 <div class="col-sm-3">
   <%= form_for(:document, url: document_path, method: 'post') do |f| %>
@@ -10,7 +14,7 @@
   <% end %>
 </div>
 <% if @documents.any? %>
-  <table class="documents-table">
+  <table class="table table-hover">
     <thead>
     <tr>
       <th>Name : </th>
@@ -20,39 +24,38 @@
       <th>Sharing :</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="table-striped">
     <% @documents.each do |document| %>
-      <% if document.user_document.attached? %>
+
         <tr>
-          <td><%= document.user_document.filename %></td>
-          <td><%= document.user_document.created_at.strftime("%-d %b %Y %H:%M") %></td>
-          <td><%= file_size_verbose document.user_document.byte_size %></td>
+          <td><%= document.uuid %></td>
+          <td><%= document.file_name %></td>
+          <td><%= document.created_at.strftime("%-d %b %Y %H:%M") %></td>
+          <td><%= file_size_verbose document.file_size if document.file_size %></td>
           <td>
-            <%= link_to 'Download', document.user_document, download: '' %> |&nbsp;
-            <%= link_to "Delete", document_path(document.key),
-                        data: {:confirm => 'Are you sure you want to delete?'},
-                        method: :delete %>
+            <%= link_to 'Download', { action: "download", id: document.uuid }, method: :get %> |&nbsp;
+            <%= button_to 'Delete', { action: "destroy", id: document.uuid }, method: :delete, class:'btn' %>
           </td>
           <td>
             <div>
-              <%= form_for(:document, url: document_path(document.key),
+              <%= form_for(:document, url: document_update_path(document.uuid),
                            method: 'patch') do |f| %>
                 <div class="custom-control custom-switch">
                   <input class="custom-control-input" type="checkbox"
-                         onclick="this.form.submit();" value="1" <%= 'checked' if document.shared %>
-                         name="document[shared]" id="share-<%= document.key %>"/>
+                         onclick="this.form.submit();" value="1" <%= 'checked' if document.sharing %>
+                         name="document[sharing]" id="share-<%= document.uuid %>"/>
                   <label class="custom-control-label"
-                         for="share-<%= document.key %>"></label>
+                         for="share-<%= document.uuid %>"></label>
                 </div>
               <% end %>
-              <% if document.shared %>
-                <%= link_to "Link", document_path(document.key), target: :_blank %>
+              <% if document.sharing %>
+                <%= link_to "Link", shared_path(document.uuid) %>
               <% end %>
             </div>
           </td>
         </tr>
       <% end %>
-    <% end %>
+
     </tbody>
   </table>
 <% end %>

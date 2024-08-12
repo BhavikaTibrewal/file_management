@@ -1,0 +1,47 @@
+<% if @file.any? %>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Name : </th>
+      <th>Upload Date :</th>
+      <th>Size :</th>
+      <th>Actions :</th>
+      <th>Sharing :</th>
+    </tr>
+    </thead>
+    <tbody class="table-striped">
+    <% @file.each do |document| %>
+
+      <tr>
+        <td><%= document.file_name %></td>
+        <td><%= document.created_at.strftime("%-d %b %Y %H:%M") %></td>
+        <td><%= file_size_verbose document.file_size if document.file_size %></td>
+        <td>
+          <%= link_to 'Download', document, download: '' %> |&nbsp;
+          <%= link_to "Delete", document_path(document.uuid),
+                      data: {:confirm => 'Are you sure you want to delete?'},
+                      method: :delete %>
+        </td>
+        <td>
+          <div>
+            <%= form_for(:document, url: document_path(document.uuid),
+                         method: 'patch') do |f| %>
+              <div class="custom-control custom-switch">
+                <input class="custom-control-input" type="checkbox"
+                       onclick="this.form.submit();" value="1" <%= 'checked' if document.sharing %>
+                       name="document[sharing]" id="share-<%= document.uuid %>"/>
+                <label class="custom-control-label"
+                       for="share-<%= document.uuid %>"></label>
+              </div>
+            <% end %>
+            <% if document.sharing %>
+              <%= link_to "Link", document_path(document.uuid), target: '_blank' %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+<% end %>
